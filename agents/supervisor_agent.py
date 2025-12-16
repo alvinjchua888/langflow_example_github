@@ -1,6 +1,6 @@
 """Supervisor Agent for routing requests to appropriate specialized agents."""
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from typing import Dict, Any
 import json
 

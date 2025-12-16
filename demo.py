@@ -110,6 +110,11 @@ def demo_search_agent():
 
 def main():
     """Run all demos."""
+    import sys
+    
+    # Check for non-interactive mode
+    non_interactive = '--non-interactive' in sys.argv or os.getenv('DEMO_NON_INTERACTIVE') == '1'
+    
     print("\n")
     print("*" * 70)
     print("*" + " " * 68 + "*")
@@ -117,6 +122,9 @@ def main():
     print("*" + " " * 68 + "*")
     print("*" * 70)
     print("\n")
+    
+    if non_interactive:
+        print("Running in non-interactive mode\n")
     
     # Check API key
     if not os.getenv("OPENAI_API_KEY"):
@@ -130,15 +138,18 @@ def main():
     # Run demos
     try:
         demo_supervisor()
-        input("\nPress Enter to continue to Math Agent demo...")
+        if not non_interactive:
+            input("\nPress Enter to continue to Math Agent demo...")
         print("\n")
         
         demo_math_agent()
-        input("\nPress Enter to continue to SQL Agent demo...")
+        if not non_interactive:
+            input("\nPress Enter to continue to SQL Agent demo...")
         print("\n")
         
         demo_sql_agent()
-        input("\nPress Enter to continue to Search Agent demo...")
+        if not non_interactive:
+            input("\nPress Enter to continue to Search Agent demo...")
         print("\n")
         
         demo_search_agent()

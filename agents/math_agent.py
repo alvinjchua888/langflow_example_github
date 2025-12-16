@@ -26,12 +26,15 @@ class MathAgent:
             The result of the calculation.
         """
         try:
-            # Remove any non-mathematical characters for safety
-            safe_expr = re.sub(r'[^0-9+\-*/().\s]', '', expression)
+            # Remove any potentially harmful characters, keep only math-related ones
+            # Allow digits, operators, parentheses, spaces, and function names
+            allowed_pattern = r'[^0-9+\-*/().sqrt()sincotanlgexpi\s]'
+            safe_expr = re.sub(allowed_pattern, '', expression)
             
-            # Create a safe evaluation environment with math functions
+            # Create a restricted evaluation environment with math functions
+            # Using __builtins__: {} prevents access to built-in functions like exec, eval, open, etc.
             safe_dict = {
-                '__builtins__': {},
+                '__builtins__': {},  # No built-in functions
                 'abs': abs,
                 'round': round,
                 'min': min,
@@ -48,7 +51,9 @@ class MathAgent:
                 'e': math.e,
             }
             
-            result = eval(safe_expr, safe_dict)
+            # Evaluate with restricted namespace and builtins disabled
+            # This is still eval() but heavily restricted to only mathematical operations
+            result = eval(safe_expr, {"__builtins__": {}}, safe_dict)
             return str(result)
         except Exception as e:
             return f"Error: {str(e)}"

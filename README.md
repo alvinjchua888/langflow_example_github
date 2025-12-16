@@ -68,6 +68,14 @@ OPENAI_API_KEY=your_openai_api_key_here
 SERPAPI_API_KEY=your_serpapi_key_here
 ```
 
+### Verify Installation (Optional)
+
+```bash
+python verify_installation.py
+```
+
+This will check that all dependencies, files, and configuration are correct.
+
 ### Running the Application
 
 ```bash

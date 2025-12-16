@@ -1,0 +1,76 @@
+{
+  "name": "Multi-Agent System",
+  "description": "A multi-agent system with supervisor routing",
+  "version": "1.0.0",
+  "agents": {
+    "supervisor": {
+      "type": "SupervisorAgent",
+      "description": "Routes requests to appropriate specialized agents",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0,
+      "capabilities": [
+        "request_routing",
+        "agent_selection",
+        "task_analysis"
+      ]
+    },
+    "math": {
+      "type": "MathAgent",
+      "description": "Handles mathematical computations and calculations",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0,
+      "tools": [
+        "Calculator"
+      ],
+      "capabilities": [
+        "arithmetic",
+        "algebra",
+        "trigonometry",
+        "statistics"
+      ]
+    },
+    "sql": {
+      "type": "SQLAgent",
+      "description": "Converts natural language to SQL queries",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0,
+      "tools": [
+        "SQLGenerator",
+        "SQLValidator"
+      ],
+      "capabilities": [
+        "query_generation",
+        "syntax_validation",
+        "query_optimization"
+      ]
+    },
+    "search": {
+      "type": "SearchAgent",
+      "description": "Searches Google for information",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0,
+      "tools": [
+        "GoogleSearch",
+        "Summarizer"
+      ],
+      "capabilities": [
+        "web_search",
+        "information_retrieval",
+        "summarization"
+      ],
+      "requires": [
+        "SERPAPI_API_KEY"
+      ]
+    }
+  },
+  "routing_strategy": {
+    "type": "llm_based",
+    "description": "Uses LLM to analyze queries and route to appropriate agents",
+    "fallback": "search"
+  },
+  "integration": {
+    "framework": "langchain",
+    "ui": "streamlit",
+    "llm_provider": "openai"
+  }
+}
